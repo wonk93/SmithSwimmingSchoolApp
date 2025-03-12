@@ -1,0 +1,69 @@
+﻿@model X.PagedList.IPagedList<SmithSwimmingSchoolApp.Models.Coach>
+@using X.PagedList.Mvc.Core; 
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="container rounded border p-3 w-50" style="background-color: #e3f2fd;">
+        <h1 class="text-center">Coaches</h1>
+    </div>
+
+<form method="get" action="@Url.Action("Index")" class="d-flex justify-content-center mt-4">
+    <div class="input-group w-50">
+        <input type="text" class="form-control rounded-start" id="searchName" name="searchName"
+               placeholder="Search Coach..." value="@ViewData["SearchName"]" />
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-dark">Create New Coach</a>
+</p>
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>PhoneNumber</th>
+            <th>CoachSex</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="table-primary">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.CoachSex)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark btn-sm">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+            new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+        DisplayLinkToLastPage = PagedListDisplayMode.Always,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        MaximumPageNumbersToDisplay = 5,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+        EllipsesFormat = "…",
+        LinkToFirstPageFormat = "Primera",
+        LinkToLastPageFormat = "Última",
+        LinkToPreviousPageFormat = "Anterior",
+        LinkToNextPageFormat = "Siguiente",
+        ContainerDivClasses = new[] { "pagination-container" },
+        UlElementClasses = new[] { "pagination" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    }
+            )
+</div>

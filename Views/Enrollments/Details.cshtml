@@ -1,0 +1,41 @@
+﻿@model SmithSwimmingSchoolApp.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card w-50">
+        <div class="card-header text-center bg-info text-white">
+            Enrollment Details
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Course)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Course!.Title)
+                </dd>
+
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Swimmer)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Swimmer!.Name)
+                </dd>
+
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Grouping)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Grouping!.Level)
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-success">Edit</a>
+            <a asp-action="Index" class="btn btn-dark">Back to List</a>
+        </div>
+    </div>
+</div>

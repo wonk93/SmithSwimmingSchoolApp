@@ -1,0 +1,54 @@
+﻿@model SmithSwimmingSchoolApp.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card w-50">
+        <div class="card-header text-center bg-warning text-white">
+            Edit Enrollment
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="CourseId" class="control-label"></label>
+                    <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId">
+                        <option value="">--Choose a Course--</option>
+                    </select>
+                    <span asp-validation-for="CourseId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SwimmerId" class="control-label"></label>
+                    <select asp-for="SwimmerId" class="form-control" asp-items="ViewBag.SwimmerId" hidden>
+                        <option value="">--Choose a Swimmer--</option>
+                    </select>
+                    <span asp-validation-for="SwimmerId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="GroupingId" class="control-label"></label>
+                    <select asp-for="GroupingId" class="form-control" asp-items="ViewBag.GroupingId">
+                        <option value="">--Choose a Grouping--</option>
+                    </select>
+                    <span asp-validation-for="GroupingId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <input type="submit" value="Save" class="btn btn-primary mt-3" />
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Index" class="btn btn-dark">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

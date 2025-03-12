@@ -1,0 +1,53 @@
+﻿@model SmithSwimmingSchoolApp.Models.Course
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card w-50">
+        <div class="card-header text-center">
+            Create Course
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Coach" class="control-label"></label>
+                    <select asp-for="CoachId" class="form-control" asp-items="ViewBag.CoachName">
+                        <option value="">--Choose a Coach--</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LevelCourse" class="control-label"></label>
+                    <select asp-for="LevelCourse" class="form-control" asp-items="ViewBag.LevelCourse">
+                        <option value="">--Choose a Level of course--</option>
+                    </select>
+                    <span asp-validation-for="LevelCourse" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary mt-3" />
+                </div>
+            </form>
+
+            <div class="mt-3">
+                <a asp-action="Index" class="btn btn-dark mt-3">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

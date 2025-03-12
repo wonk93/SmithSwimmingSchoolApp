@@ -1,0 +1,107 @@
+﻿@model X.PagedList.IPagedList<SmithSwimmingSchoolApp.Models.Swimmer>
+@using X.PagedList.Mvc.Core; 
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container rounded border p-3 w-50" style="background-color: #e3f2fd;">
+    <h1 class="text-center">Swimmer</h1>
+</div>
+
+<form method="get" action="@Url.Action("Index")" class="d-flex justify-content-center mt-4">
+    <div class="input-group w-50">
+        <input type="text" class="form-control rounded-start" id="searchName" name="searchName"
+               placeholder="Search Swimmer..." value="@ViewData["SearchName"]" />
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+</form>
+
+<p>
+    @if (User.IsInRole("Administrator"))
+    {
+        <a asp-action="Create" class="btn btn-success">Create New Swimmer</a>
+    }
+   
+</p>
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                PhoneNumber
+            </th>           
+            <th>
+                BirthDate
+            </th>           
+            <th>
+                SwimmerSex
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="table-primary">
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>          
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.SwimmerSex)
+            </td> 
+            <td>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
+                    }
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Coach"))
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    }
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Coach") || User.IsInRole("Swimmer"))
+                    {
+                        <a asp-action="Index" asp-route-id="@item.Id" asp-controller="Report" asp-route-name="@item.Name" class="btn btn-dark">Reports</a>
+                    }
+                    @if (User.IsInRole("Coach"))
+                    {
+                        <a asp-controller="Report" asp-action="AddReport" asp-route-id="@item.Id" class="btn btn-primary">Add Report to the swimmer</a>
+                    }                    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="d-flex justify-content-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+            new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+        DisplayLinkToLastPage = PagedListDisplayMode.Always,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        MaximumPageNumbersToDisplay = 5,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+        EllipsesFormat = "…",
+        LinkToFirstPageFormat = "Primera",
+        LinkToLastPageFormat = "Última",
+        LinkToPreviousPageFormat = "Anterior",
+        LinkToNextPageFormat = "Siguiente",
+        ContainerDivClasses = new[] { "pagination-container" },
+        UlElementClasses = new[] { "pagination" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    }
+            )
+</div>
+

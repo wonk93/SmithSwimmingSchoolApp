@@ -1,0 +1,55 @@
+﻿@model SmithSwimmingSchoolApp.Models.Swimmer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card w-50">
+        <div class="card-header text-center bg-primary text-white">
+            Create Swimmer
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BirthDate" class="control-label"></label>
+                    <input asp-for="BirthDate" class="form-control" type="date" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+
+                @{
+                    var coachSexOptions = (IEnumerable<SelectListItem>)ViewData["SwimmerSexOptions"];
+                }
+
+                <div class="form-group">
+                    <label asp-for="SwimmerSex" class="control-label"></label>
+                    <select asp-for="SwimmerSex" class="form-control" asp-items="coachSexOptions"></select>
+                    <span asp-validation-for="SwimmerSex" class="text-danger"></span>
+                </div>             
+
+                <div class="form-group text-center">
+                    <input type="submit" value="Create" class="btn btn-primary mt-3" />
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Index" class="btn btn-dark">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

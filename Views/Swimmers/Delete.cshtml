@@ -1,0 +1,60 @@
+﻿@model SmithSwimmingSchoolApp.Models.Swimmer
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card w-50">
+        <div class="card-header text-center bg-danger text-white">
+            Delete Swimmer
+        </div>
+        <div class="card-body">
+            <h3 class="text-center text-danger">Are you sure you want to delete this?</h3>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>               
+
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.BirthDate)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.BirthDate)
+                </dd>
+
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.IdentityUser)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.IdentityUser.Id)
+                </dd>
+
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.SwimmerSex)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.SwimmerSex)
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer text-center">
+            <form asp-action="Delete" method="post" class="d-inline">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <a asp-action="Index" class="btn btn-dark">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>

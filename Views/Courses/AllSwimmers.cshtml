@@ -1,0 +1,43 @@
+﻿@model SmithSwimmingSchoolApp.ViewModel.SwimmerInCourseViewModel
+
+@{
+    ViewData["Title"] = "Swimmers in Course";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card w-75">
+        <div class="card-header text-center">
+            Alumnos inscritos en el curso: @Model.Course!.Title
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre</th>  
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Swimmers != null)
+                    {
+                        foreach (var swimmer in ViewBag.Swimmers)
+                        {
+                            <tr>
+                                <td>@swimmer.Name</td>                           
+                                
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center">No hay nadadores inscritos.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Index" class="btn btn-dark">Back to List</a>
+        </div>
+    </div>
+</div>
